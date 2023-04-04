@@ -1,0 +1,11 @@
+{
+    "name": "Socials",
+    "alias": "socials",
+    "description": "",
+    "keywords": [],
+    "priority": 0,
+    "providers": [
+        "Modules\\Socials\\Providers\\SocialsServiceProvider"
+    ],
+    "files": []
+}
