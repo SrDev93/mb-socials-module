@@ -5,6 +5,7 @@ namespace Modules\Socials\Http\Controllers;
 use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\File;
 use Modules\Socials\Entities\Social;
 
@@ -16,7 +17,13 @@ class SocialsController extends Controller
      */
     public function index()
     {
-        $items = Social::all();
+        if (\request()->session()->has('brand_id')){
+            $items = Social::where('brand_id', \request()->session()->get('brand_id'))->get();
+        }elseif (Auth::user()->brand_id) {
+            $items = Social::where('brand_id', Auth::user()->brand_id)->get();
+        }else {
+            $items = Social::all();
+        }
 
         return view('socials::index', compact('items'));
     }
